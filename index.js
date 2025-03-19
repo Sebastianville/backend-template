@@ -6,13 +6,18 @@ import morgan from 'morgan'
 import helmet from 'helmet'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import mongoose from "mongoose";
 
 //!step 5- This is the beginning of how we are telling index we have new routers. DOn't forget to add the .js at the end
 import { healthRouter } from "./routes/health.js";
 
 //? Step 4.5- We first created an .env file in our backend-template folder. Created the variable. 
 dotenv.config()
-console.log(process.env.MONGODB_URI)
+//this helps you connect to mongoose. Await it makes the whole application to to wait till there is connection to mongoDB using Mongoose 
+await mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log("Connected to MongoDB"))
+    .catch(e => console.error(e))
+
 
 //!Step  1
 const PORT = process.env.PORT || 4000;
